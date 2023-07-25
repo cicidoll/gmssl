@@ -38,3 +38,21 @@ class ModCalculate:
                     y = (y*b) % p
             result = (y*a)%p
         return result
+    
+
+a = 250000002345620000000
+b = 30000020345324623200000000000000000000
+p = 8234656743524467
+
+import time
+start = time.time()
+print(ModCalculate.decimal_mod(a, b, p))
+end = time.time()
+print("运算时间：%fs" % (end - start))
+
+print('-'*30)
+
+start = time.time()
+print(pow(a, b-2, p))
+end = time.time()
+print("运算时间：%fs" % (end - start))

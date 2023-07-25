@@ -1,5 +1,5 @@
-from EllipticCurve.IBase import EllipticCurveIBase
-from ModCalculate import ModCalculate
+from Calculate.EllipticCurve.IBase import EllipticCurveIBase
+from Calculate.ModCalculate import int_mod, decimal_mod
 from typing import List
 import math
 
@@ -28,9 +28,7 @@ class PointCalculate:
                 Q = self.plus_point(Q, Q)
                 i -= 1
             if n > 0:
-                Q = self.plus_point(
-                    Q, self.muly_point(n, P)
-                )
+                Q = self.plus_point(Q, self.muly_point(n, P))
         return Q
 
     def plus_point(self, P: List[int], Q: List[int]) -> List[int]:
@@ -51,11 +49,11 @@ class PointCalculate:
         else:
             if P != Q:
                 # 当P!=Q时，计算PQ直线斜率m=(y2-y1)/(x2-x1)
-                m = ModCalculate.decimal_mod(Q[1]-P[1], Q[0]-P[0], p)
+                m = decimal_mod(Q[1]-P[1], Q[0]-P[0], p)
             else:
                 # 当P=Q时，计算PQ直线斜率m
-                m = ModCalculate.decimal_mod(3*P[0]**2+a, 2*P[1], p)
-            x = ModCalculate.int_mod(m**2-P[0]-Q[0], p)
-            y = ModCalculate.int_mod(m*(P[0]-x)-P[1], p)
+                m = decimal_mod(3*P[0]**2+a, 2*P[1], p)
+            x = int_mod(m**2-P[0]-Q[0], p)
+            y = int_mod(m*(P[0]-x)-P[1], p)
             R = [x, y]
         return R
